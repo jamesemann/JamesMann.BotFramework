@@ -1,4 +1,4 @@
-# JamesMann.BotFramework
+﻿# JamesMann.BotFramework
 
 A collection of Bot Framework V4 extensions and middleware. I'll be migrating all the reusable stuff in existing demos to this library, and making it modular over time. In the meantime I'm using it for my video series on YouTube. Feel free to use, licensed with MIT - free to use / no liability or warranty.
 
@@ -16,12 +16,14 @@ It supports:
 - Request an access token using authorization code (Server side)
 - Request an access token using refresh token (Server side)
 
-**Note: This middleware requires you to store OAuth access/refresh tokens somewhere on the server side. I have purposefully not prescribed how to store these access tokens.  If you make use of this middleware you need to provide an implementation of `IAuthTokenStorage`. This should use secure storage like Azure Key Vault. Read up on that here. https://docs.microsoft.com/en-us/azure/key-vault/quick-create-net.**
+**Note: This middleware requires you provide a class to store OAuth access/refresh tokens somewhere. I have purposefully not prescribed how to store these access tokens.  If you make use of this middleware you need to provide an implementation of `IAuthTokenStorage`. This should use secure storage like Azure Key Vault. Read up on that here. https://docs.microsoft.com/en-us/azure/key-vault/quick-create-net.**
 
 #### Usage
 
 ##### Step 1 - Define an implementation of `IAuthTokenStorage` to store and retrieve tokens
-This is an example of an in-memory `IAuthTokenStorage`. This is to demonstrate the principle only **AGAIN, DO NOT USE THIS FOR PRODUCTION APPLICATIONS** 
+This is an example of an in-memory `IAuthTokenStorage`. This is to demonstrate the principle only.
+
+**💣 AGAIN, DO NOT USE THIS SAMPLE FOR PRODUCTION APPLICATIONS 💣** 
 
 ```
 public class InMemoryAuthTokenStorage : IAuthTokenStorage
@@ -48,7 +50,7 @@ public class InMemoryAuthTokenStorage : IAuthTokenStorage
 
 To ensure that users are always authenticated, add this middleware to the start of the pipeline.
 
-In your `Startup.cs` file, register an your `IAuthTokenStorage` implemnentation as a singleton into the asp dotnet core ioc. Then configure your bot type to use an instance of `AzureAdAuthMiddleware`.
+In your `Startup.cs` file, register an your `IAuthTokenStorage` implementation as a singleton into the asp dotnet core ioc container. Then configure your bot type to use an instance of `AzureAdAuthMiddleware`.
 
 
 ```
