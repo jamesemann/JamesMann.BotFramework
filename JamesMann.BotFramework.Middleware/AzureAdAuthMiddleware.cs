@@ -35,7 +35,6 @@ namespace JamesMann.BotFramework.Middleware
         public async Task OnTurn(ITurnContext context, MiddlewareSet.NextDelegate next)
         {
             var authToken = TokenStorage.LoadConfiguration(context.Activity.Conversation.Id);
-            authToken.ExpiresIn = DateTime.MinValue;
 
             if (authToken == null)
             {
