@@ -4,6 +4,7 @@ A collection of Bot Framework V4 extensions and middleware. I'll be migrating al
 
 ## JamesMann.BotFramework.Middleware
 
+This package is available on NuGet 👉 https://www.nuget.org/packages/JamesMann.BotFramework.Middleware
 
 ### AzureAdAuthMiddleware
 
