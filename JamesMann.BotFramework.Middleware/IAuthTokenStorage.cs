@@ -15,10 +15,9 @@ namespace RoomBookingBot.Chatbot.Middleware
 
     public class ConversationAuthToken
     {
-        public ConversationAuthToken(string id, string accessToken)
+        public ConversationAuthToken(string id)
         {
             Id = id;
-            AccessToken = accessToken;
         }
 
         public string Id { get; set; }
@@ -26,6 +25,10 @@ namespace RoomBookingBot.Chatbot.Middleware
         // Note this is stored in memory in plain text for demonstration purposes
         // use your common sense when applying this in your apps! i.e. take appropriate precautions 
         public string AccessToken { get; set; }
+
+        public string RefreshToken { get; set; }
+
+        public DateTime ExpiresIn { get; set; }
     }
 
     public class InMemoryAuthTokenStorage : IAuthTokenStorage

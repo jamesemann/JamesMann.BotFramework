@@ -40,8 +40,13 @@ namespace RoomBookingBot.Chatbot.Controllers
             var botFrameworkConversationReference = JsonConvert.DeserializeObject<ConversationReference>(state);
 
             // get the access token and store against the conversation id
-            var authToken = await new HttpClient().GetAzureAdToken(AzureAdTenant, code, AppClientId, AppRedirectUri, AppClientSecret, PermissionsRequested);
-            StateManager.SaveConfiguration(new ConversationAuthToken(botFrameworkConversationReference.Conversation.Id, authToken));
+            var authToken = await new HttpClient().GetAccessTokenUsingAuthorizationCode(AzureAdTenant, code, AppClientId, AppRedirectUri, AppClientSecret, PermissionsRequested);
+            StateManager.SaveConfiguration(new ConversationAuthToken(botFrameworkConversationReference.Conversation.Id)
+            {
+                AccessToken = authToken.accessToken,
+                ExpiresIn = authToken.refreshTokenExpiresIn,
+                RefreshToken = authToken.refreshToken                
+            });
 
             // send a proactive message back to user
             var connectorClient = new ConnectorClient(new Uri(botFrameworkConversationReference.ServiceUrl));

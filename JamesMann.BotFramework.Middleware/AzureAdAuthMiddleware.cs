@@ -4,7 +4,9 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using RoomBookingBot.Chatbot.Extensions;
 using RoomBookingBot.Extensions;
+using System;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace RoomBookingBot.Chatbot.Middleware
@@ -33,6 +35,7 @@ namespace RoomBookingBot.Chatbot.Middleware
         public async Task OnTurn(ITurnContext context, MiddlewareSet.NextDelegate next)
         {
             var authToken = TokenStorage.LoadConfiguration(context.Activity.Conversation.Id);
+            authToken.ExpiresIn = DateTime.MinValue;
 
             if (authToken == null)
             {
@@ -50,10 +53,31 @@ namespace RoomBookingBot.Chatbot.Middleware
                     await context.SendActivity(activity);
                 }
             }
+            if (authToken.ExpiresIn < DateTime.Now.AddMinutes(-10))
+            {
+                if (context.Activity.UserHasJustSentMessage() || context.Activity.UserHasJustJoinedConversation())
+                {
+                    var client = new HttpClient();
+                    var accessToken = await AzureAdExtensions.GetAccessTokenUsingRefreshToken(client, AzureAdTenant, authToken.RefreshToken, AppClientId, AppRedirectUri, AppClientSecret, PermissionsRequested);
+
+                    // have to save it
+                    authToken = new ConversationAuthToken(context.Activity.Conversation.Id)
+                    {
+                        AccessToken = accessToken.accessToken,
+                        RefreshToken = accessToken.refreshToken,
+                        ExpiresIn = accessToken.refreshTokenExpiresIn
+                    };
+                    TokenStorage.SaveConfiguration(authToken);
+
+                    // make the authtoken available to downstream pipeline components
+                    context.Services.Add(AUTH_TOKEN_KEY, authToken);
+                    await next();
+                }
+            }
             else
             {
                 // make the authtoken available to downstream pipeline components
-                context.Services.Add(AUTH_TOKEN_KEY,authToken);
+                context.Services.Add(AUTH_TOKEN_KEY, authToken);
                 await next();
             }
         }
