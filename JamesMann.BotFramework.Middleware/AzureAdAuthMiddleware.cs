@@ -9,7 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace RoomBookingBot.Chatbot.Middleware
+namespace JamesMann.BotFramework.Middleware
 {
     public class AzureAdAuthMiddleware : IMiddleware
     {

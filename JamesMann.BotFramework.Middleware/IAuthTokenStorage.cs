@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RoomBookingBot.Chatbot.Middleware
+namespace JamesMann.BotFramework.Middleware
 {
     public interface IAuthTokenStorage
     {

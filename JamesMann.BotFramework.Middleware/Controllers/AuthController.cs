@@ -9,9 +9,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using RoomBookingBot.Extensions;
 using Microsoft.Bot.Connector;
-using RoomBookingBot.Chatbot.Middleware;
-
-namespace RoomBookingBot.Chatbot.Controllers
+namespace JamesMann.BotFramework.Middleware.Controllers
 {
     [Produces("application/json")]
     [Route("redirect")]
