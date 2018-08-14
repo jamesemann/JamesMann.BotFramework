@@ -52,7 +52,7 @@ namespace JamesMann.BotFramework.Middleware
                     await context.SendActivity(activity);
                 }
             }
-            if (authToken.ExpiresIn < DateTime.Now.AddMinutes(-10))
+            else if (authToken.ExpiresIn < DateTime.Now.AddMinutes(-10))
             {
                 if (context.Activity.UserHasJustSentMessage() || context.Activity.UserHasJustJoinedConversation())
                 {
