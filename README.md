@@ -132,7 +132,7 @@ The configuration can be read from your `appsettings.json` file which needs the 
 }
 ```
 
-### SemanticMiddleware
+### SentimentAnalysisMiddleware
 
 This middleware will record the sentiment of each incoming text using Cognitive Services Text Analytics API and therefore requires a key. There is a free tier which meets my demo/PoC needs.  You can get more info at https://azure.microsoft.com/en-us/services/cognitive-services/text-analytics/
 
