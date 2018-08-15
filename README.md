@@ -1,7 +1,5 @@
 ﻿# JamesMann.BotFramework
 
-[![Build status](https://jamesemann.visualstudio.com/GitHub%20Projects/_apis/build/status/GitHub%20Projects-JamesMann.BotFramework%20CI?branch=master)](https://jamesemann.visualstudio.com/GitHub%20Projects/_build/latest?definitionId=7&branch=master)
-
 A collection of Bot Framework V4 extensions and middleware. I'll be migrating all the reusable stuff in existing demos to this library, and making it modular over time. In the meantime I'm using it for my video series on YouTube. Feel free to use, licensed with MIT - free to use / no liability or warranty.
 
 ## JamesMann.BotFramework.Middleware
