@@ -160,6 +160,6 @@ The configuration can be read from your `appsettings.json` file which needs the 
 
 ```
 {
-  "SentimentKey": "<YOUR SPELL CHECK KEY HERE>"
+  "SentimentKey": "<YOUR SENTIMENT ANALYIS KEY HERE>"
 }
 ```

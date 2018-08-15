@@ -1,12 +1,7 @@
 ﻿using JamesMann.BotFramework.Middleware.Extensions;
-using Microsoft.Azure.CognitiveServices.Language.TextAnalytics;
-using Microsoft.Azure.CognitiveServices.Language.TextAnalytics.Models;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Schema;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JamesMann.BotFramework.Middleware
@@ -15,7 +10,7 @@ namespace JamesMann.BotFramework.Middleware
     {
         public SentimentMiddleware(IConfiguration configuration)
         {
-            ApiKey = configuration.GetValue<string>("SemanticsKey");
+            ApiKey = configuration.GetValue<string>("SentimentKey");
         }
 
         public string ApiKey { get; }
