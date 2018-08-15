@@ -1,7 +1,9 @@
-﻿using Microsoft.Bot.Schema;
+﻿using JamesMann.BotFramework.Middleware;
+using Microsoft.Bot.Schema;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace RoomBookingBot.Chatbot.Extensions
 {
@@ -18,10 +20,31 @@ namespace RoomBookingBot.Chatbot.Extensions
             activity.Attachments = new List<Attachment>() { CreateSignInCard(url) };
         }
 
+        public static void AddAdaptiveCardChoiceForm(this Activity activity, (string text, object value)[] choices)
+        {
+            activity.Attachments = new List<Attachment> { CreateChoiceAdaptiveCardAttachment(choices) };
+        }
+
+        private static Attachment CreateChoiceAdaptiveCardAttachment((string text, object value)[] choices)
+        {
+            var choiceItems = new List<dynamic>(choices.Select(choice => new { title = choice.text, choice.value }));
+
+            var serializedChoices = JsonConvert.SerializeObject(choiceItems.ToArray());
+
+            var adaptiveCard = Resource.AdaptiveCardChoiceTemplate;
+            adaptiveCard = adaptiveCard.Replace("$(choices)", serializedChoices);
+
+            return new Attachment
+            {
+                ContentType = "application/vnd.microsoft.card.adaptive",
+                Content = JsonConvert.DeserializeObject(adaptiveCard)
+            };
+        }
+
 
         private static Attachment CreateAdaptiveCardRoomConfirmationAttachment(string room, string date, string time, string attendees)
         {
-            var adaptiveCard = File.ReadAllText(@".\adaptivecard.roomconfirmation.json");
+            var adaptiveCard = Resource.AdaptiveCardRoomTemplate;
             adaptiveCard= adaptiveCard.Replace("$(room)", room);
             adaptiveCard= adaptiveCard.Replace("$(date)", date);
             adaptiveCard= adaptiveCard.Replace("$(time)", time);
@@ -37,13 +60,13 @@ namespace RoomBookingBot.Chatbot.Extensions
         {
                 return new SigninCard()
                 {
-                    Text = "BotFramework Sign-in Card",
+                    Text = "Please sign in with your Office 365 account to continue",
                     Buttons = new List<CardAction>()
                 {
                     new CardAction()
                     {
                         Type = ActionTypes.Signin,
-                        Title = "Sign-in",
+                        Title = "Sign in",
                         Value = url
                     }
                 }
