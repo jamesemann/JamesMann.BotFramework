@@ -1,4 +1,5 @@
-﻿using Microsoft.Azure.CognitiveServices.Language.SpellCheck;
+﻿using JamesMann.BotFramework.Middleware.ServiceCredentials;
+using Microsoft.Azure.CognitiveServices.Language.SpellCheck;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,7 +14,7 @@ namespace JamesMann.BotFramework.Middleware.Extensions
                 return text;
             }
 
-            var client = new SpellCheckClient(new ApiKeyServiceClientCredentials(apiKey));
+            var client = new SpellCheckClient(new ServiceCredentials.ApiKeyServiceClientCredentials(apiKey));
             var spellCheckResult = await client.SpellCheckerAsync(text);
 
             foreach (var flaggedToken in spellCheckResult.FlaggedTokens)
