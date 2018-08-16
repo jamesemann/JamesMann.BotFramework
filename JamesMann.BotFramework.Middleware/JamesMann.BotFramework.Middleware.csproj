@@ -29,4 +29,13 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <PropertyGroup>
+    <Authors>jamesemann;arafat</Authors>
+    <Description>A collection of Bot Framework V4 extensions and middleware. Including: Azure AD Authentication, Typing, Spell Check, Sentiment Analysis.</Description>
+    <PackageLicenseUrl>https://github.com/jamesemann/JamesMann.BotFramework/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/jamesemann/JamesMann.BotFramework</PackageProjectUrl>
+    <PackageTags>bot framework;cognitive services</PackageTags>
+    <RepositoryUrl>https://github.com/jamesemann/JamesMann.BotFramework</RepositoryUrl>
+  </PropertyGroup>
+
 </Project>
