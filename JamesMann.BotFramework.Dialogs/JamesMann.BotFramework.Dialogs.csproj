@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -13,4 +13,12 @@
     <PackageReference Include="Microsoft.Recognizers.Text.DateTime" Version="1.0.10" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <Authors>jamesemann;arafat</Authors>
+    <Description>A collection of Bot Framework V4 extensions and dialogs. </Description>
+    <PackageLicenseUrl>https://github.com/jamesemann/JamesMann.BotFramework/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/jamesemann/JamesMann.BotFramework</PackageProjectUrl>
+    <PackageTags>bot framework;cognitive services</PackageTags>
+    <RepositoryUrl>https://github.com/jamesemann/JamesMann.BotFramework</RepositoryUrl>
+  </PropertyGroup>
 </Project>
